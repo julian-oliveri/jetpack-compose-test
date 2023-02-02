@@ -233,7 +233,3 @@ fun DefaultPreview() {
         Greeting("Android")
     }
 }
-
-// cibo per cani | comida de perro
-// delicatezza di dio | manjar de dios
-// Io sono fan della/del pizza/risotto | femenino/masculino
