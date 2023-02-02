@@ -46,6 +46,7 @@ class MainActivity : ComponentActivity() {
         val recipesApi = RetrofitHelper.getInstance().create(RecipesApi::class.java)
         GlobalScope.launch {
             val result = recipesApi.getRecipes()
+            Log.d("food", result.body()!!.hits[1].recipe.toString())
             if (result != null)
                 foodList?.let { list1 -> result.body()!!.hits?.let(list1::addAll) }
 
@@ -159,7 +160,7 @@ fun FoodCard(food: RecipeData) {
                 }
 
                 ElevatedButton(
-                    onClick = { expanded = !expanded },
+                    onClick = { Log.d("foodID", food.externalId) },
                 ) {
                     Text("Vamos Alla")
                 }
