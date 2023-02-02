@@ -206,14 +206,15 @@ private fun FoodScreen(
         modifier = modifier,
         color = MacAndCheese
     ) {
-        Column() {
-            Greeting("Giuseppe")
-            LazyColumn(state = rememberLazyListState()){
-                items(items = foodList) { food ->
-                    FoodCard(food = food.recipe)
-                }
+        LazyColumn(state = rememberLazyListState()){
+            item {
+                Greeting("Giuseppe")
+            }
+            items(items = foodList) { food ->
+                FoodCard(food = food.recipe)
             }
         }
+
     }
 }
 
