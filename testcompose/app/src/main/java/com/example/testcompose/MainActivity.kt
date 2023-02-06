@@ -1,5 +1,6 @@
 package com.example.testcompose
 
+import android.graphics.Paint.Align
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -29,34 +30,22 @@ import com.example.testcompose.ui.theme.*
 import androidx.compose.material3.Button
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import com.example.recipeappdata.Domain.Repository.RecipesApi
-import com.example.recipeappdata.Domain.Helper.RetrofitHelper
-import com.example.recipeappdata.Domain.Model.RecipeData
-import com.example.recipeappdata.Domain.Model.RecipeIngredients
-import com.example.recipeappdata.Domain.Model.RecipeList
-import com.example.recipeappdata.Domain.Model.RecipeResponse
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-
-var foodList: MutableList<RecipeList> = mutableListOf<RecipeList>()
+import com.example.recipe_navigation.AppNavHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val recipesApi = RetrofitHelper.getInstance().create(RecipesApi::class.java)
-        GlobalScope.launch {
-            val result = recipesApi.getRecipes()
-            Log.d("food", result.body()!!.hits[1].recipe.toString())
-            if (result != null)
-                foodList?.let { list1 -> result.body()!!.hits?.let(list1::addAll) }
-
-        }
+//        val recipesApi = RetrofitHelper.getInstance().create(RecipesApi::class.java)
+//        GlobalScope.launch {
+//            val result = recipesApi.getRecipes()
+//            Log.d("food", result.body()!!.hits[1].recipe.toString())
+//            if (result != null)
+//                foodList?.let { list1 -> result.body()!!.hits?.let(list1::addAll) }
+//
+//        }
 
         setContent {
-            TestcomposeTheme {
-                // A surface container using the 'background' color from the theme
-                MyApp(modifier = Modifier.fillMaxSize(), foodList )
-            }
+            AppNavHost()
         }
     }
 }
@@ -64,18 +53,12 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun MyApp(
     modifier: Modifier = Modifier,
-    foodList: MutableList<RecipeList>
 ) {
     // el by es para no tener q escribir .value cada vez
     var shouldShowOnboarding by rememberSaveable  { mutableStateOf(true) }
-    var myFoodlist: MutableList<RecipeList> by rememberSaveable  { mutableStateOf(foodList) }
 
     Surface(modifier) {
-        if (shouldShowOnboarding) {
-            OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
-        } else {
-            FoodScreen(modifier, myFoodlist)
-        }
+        OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
     }
 
 }
@@ -84,91 +67,9 @@ private fun MyApp(
 @Composable
 fun MyAppPreview() {
     TestcomposeTheme {
-        MyApp(Modifier.fillMaxSize(), foodList)
+        MyApp(Modifier.fillMaxSize())
     }
 }
-
-@Composable
-fun Greeting(name: String) {
-    Surface( color = MacAndCheese, modifier = Modifier.fillMaxWidth()) {
-        Column(modifier = Modifier.padding(0.dp, 8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = "Buongiorno $name!",
-                modifier = Modifier.padding(0.dp, 32.dp, 0.dp, 10.dp),
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-            )
-            Text(
-                buildAnnotatedString {
-                    withStyle(style = SpanStyle(color = Green)) {
-                        append("Qui cosa ")
-                    }
-                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = White)) {
-                        append("vorresti ")
-                    }
-                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = Red)) {
-                        append("mangiare?")
-                    }
-                },
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Medium,
-                textAlign = TextAlign.Center,
-            )
-
-        }
-    }
-}
-
-@Composable
-fun FoodCard(food: RecipeData) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-
-    Box( modifier = Modifier
-        .fillMaxWidth()
-        .padding(24.dp)
-        .clip(RoundedCornerShape(10.dp))
-        .background(CardBkg) ) {
-        Column(modifier = Modifier.padding(0.dp, 8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Row(
-                modifier = Modifier.padding(24.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = food.label,
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(10.dp, 10.dp),
-                    fontSize = 22.sp,
-                    textAlign = TextAlign.Center,
-                )
-                ElevatedButton(
-                    onClick = { expanded = !expanded },
-                ) {
-                    Text(if (expanded) "Show less" else "Show more")
-                }
-            }
-            if (expanded) {
-//                AsyncImage(
-//                    model = "https://example.com/image.jpg",
-//                    contentDescription = "Translated description of what the image contains"
-//                )
-                Column(modifier = Modifier.padding(horizontal = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                    for (ing in food.ingredients) {
-                        Text(ing.text, textAlign = TextAlign.Center)
-                    }
-                }
-
-                ElevatedButton(
-                    onClick = { Log.d("foodID", food.externalId) },
-                ) {
-                    Text("Vamos Alla")
-                }
-            }
-        }
-    }
-}
-
 
 @Composable
 fun OnboardingScreen(
@@ -198,39 +99,10 @@ fun OnboardingPreview() {
     }
 }
 
-@Composable
-private fun FoodScreen(
-    modifier: Modifier = Modifier,
-    foodList: MutableList<RecipeList>,
-) {
-    Surface(
-        modifier = modifier,
-        color = MacAndCheese
-    ) {
-        LazyColumn(state = rememberLazyListState()){
-            item {
-                Greeting("Giuseppe")
-            }
-            items(items = foodList) { food ->
-                FoodCard(food = food.recipe)
-            }
-        }
-
-    }
-}
-
-@Preview(showBackground = true, widthDp = 320)
-@Composable
-private fun FoodPreview() {
-    TestcomposeTheme {
-        FoodScreen(foodList = foodList)
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     TestcomposeTheme {
-        Greeting("Android")
+        OnboardingScreen(onContinueClicked = {})
     }
 }

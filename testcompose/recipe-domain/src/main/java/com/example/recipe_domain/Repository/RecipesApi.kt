@@ -1,4 +1,4 @@
-package com.example.recipeappdata.Domain.Repository
+package com.example.recipe_domain.Repository
 
 import com.example.recipeappdata.Domain.Model.RecipeData
 import com.example.recipeappdata.Domain.Model.RecipeResponse

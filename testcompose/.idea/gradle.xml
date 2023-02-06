@@ -12,6 +12,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/recipe-core" />
+            <option value="$PROJECT_DIR$/recipe-detail" />
+            <option value="$PROJECT_DIR$/recipe-domain" />
+            <option value="$PROJECT_DIR$/recipe-list" />
+            <option value="$PROJECT_DIR$/recipe-navigation" />
+            <option value="$PROJECT_DIR$/recipe-shared-components" />
             <option value="$PROJECT_DIR$/recipeAppData" />
           </set>
         </option>

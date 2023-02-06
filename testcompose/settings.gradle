@@ -15,3 +15,9 @@ dependencyResolutionManagement {
 rootProject.name = "testcompose"
 include ':app'
 include ':recipeAppData'
+include ':recipe-detail'
+include ':recipe-domain'
+include ':recipe-list'
+include ':recipe-shared-components'
+include ':recipe-navigation'
+include ':recipe-core'
