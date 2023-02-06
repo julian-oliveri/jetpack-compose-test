@@ -1,13 +1,13 @@
-package com.example.recipe_domain.Repository
+package com.example.recipeappdata.Network
 
-import com.example.recipeappdata.Domain.Model.RecipeData
-import com.example.recipeappdata.Domain.Model.RecipeResponse
+import com.example.recipeappdata.Model.RecipeData
+import com.example.recipeappdata.Model.RecipeResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface RecipesApi {
+interface RecipesApiClient {
     companion object {
         const val myapp_id: String = "aa59c605"
         const val myapp_key = "98b7a5c2359dc7a0e0964db1e39f191d"

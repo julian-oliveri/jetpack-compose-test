@@ -24,9 +24,9 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.recipe_detail.ui.theme.MacAndCheese
 import com.example.recipe_detail.ui.theme.TestcomposeTheme
-import com.example.recipeappdata.Domain.Model.RecipeData
-import com.example.recipeappdata.Domain.Model.RecipeIngredients
-import com.example.recipeappdata.Domain.Model.RecipeList
+import com.example.recipeappdata.Model.RecipeData
+import com.example.recipeappdata.Model.RecipeIngredients
+import com.example.recipeappdata.Model.RecipeList
 
 class RecipeDetail(recipeId: String?) : ComponentActivity() {
     val recipeId = recipeId ?: "nollega"
@@ -57,7 +57,9 @@ private fun MyApp(
 @Composable
 fun RecipeDetail(
     modifier: Modifier = Modifier,
-    foodItem: RecipeData = RecipeData("uri", "pasta con salsa", "https://media.istockphoto.com/id/1325172440/photo/spaghetti-alla-puttanesca-italian-pasta-dish-with-tomatoes-black-olives-capers-anchovies-and.jpg?b=1&s=170667a&w=0&k=20&c=0XEgTZ2pcp83v0rBgjtQ0bH9pXkxYDQgW7mrc5aNX30=", "url", listOf(RecipeIngredients("ing1", 1f, "300ml"), RecipeIngredients("ing2", 1f, "1/4 tazas"), RecipeIngredients("ing3", 1f, "3 unidades")),listOf("pelar ing1", "batir ing2","saltear ing3", "incorporar todo" ), "extid"),
+    foodItem: RecipeData = RecipeData("uri", "pasta con salsa", "https://media.istockphoto.com/id/1325172440/photo/spaghetti-alla-puttanesca-italian-pasta-dish-with-tomatoes-black-olives-capers-anchovies-and.jpg?b=1&s=170667a&w=0&k=20&c=0XEgTZ2pcp83v0rBgjtQ0bH9pXkxYDQgW7mrc5aNX30=", "url", listOf(
+        RecipeIngredients("ing1", 1f, "300ml"), RecipeIngredients("ing2", 1f, "1/4 tazas"), RecipeIngredients("ing3", 1f, "3 unidades")
+    ),listOf("pelar ing1", "batir ing2","saltear ing3", "incorporar todo" ), "extid"),
 ) {
     Surface(
         modifier = modifier,

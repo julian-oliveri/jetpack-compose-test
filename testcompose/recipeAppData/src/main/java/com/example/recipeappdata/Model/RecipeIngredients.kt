@@ -1,4 +1,4 @@
-package com.example.recipeappdata.Domain.Model
+package com.example.recipeappdata.Model
 
 class RecipeIngredients (
     val text: String,

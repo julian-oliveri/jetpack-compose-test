@@ -31,8 +31,8 @@ import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.navigation.NavController
-import com.example.recipeappdata.Domain.Model.RecipeData
-import com.example.recipeappdata.Domain.Model.RecipeList
+import com.example.recipeappdata.Model.RecipeData
+import com.example.recipeappdata.Model.RecipeList
 
 
 var foodList: MutableList<RecipeList> = mutableListOf<RecipeList>()
