@@ -1,4 +1,4 @@
-package com.example.recipeappdata.Domain.Helper
+package com.example.recipe_core.Domain.Helper
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
