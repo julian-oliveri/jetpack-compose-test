@@ -16,17 +16,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.testcompose.ui.theme.TestcomposeTheme
 
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier.fillMaxSize(),
-    navController: NavController
 ) {
     TestcomposeTheme {
         Surface(modifier) {
-            OnboardingScreen(onContinueClicked = { navController.navigate("listado") })
+            OnboardingScreen(onContinueClicked = { })
         }
     }
 
