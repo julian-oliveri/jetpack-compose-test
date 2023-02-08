@@ -25,6 +25,7 @@ import com.example.recipe_detail.composable.InstructionsList
 import com.example.recipe_detail.ui.theme.MacAndCheese
 import com.example.recipe_detail.ui.theme.TestcomposeTheme
 import com.example.recipe_detail.viewmodel.RecipeDetailViewModel
+import com.example.recipe_shared_components.composable.CenterLoader
 import com.example.recipeappdata.Model.RecipeData
 import com.example.recipeappdata.Model.RecipeIngredients
 import com.example.recipeappdata.Model.RecipeList
@@ -52,9 +53,7 @@ fun RecipeDetail(
         color = MacAndCheese
     ) {
         if (myFoodItem.value.label == "") {
-            Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                CircularProgressIndicator(modifier = Modifier.then(Modifier.size(32.dp)))
-            }
+            CenterLoader()
         } else {
             DetailScreen(foodItem = myFoodItem)
         }

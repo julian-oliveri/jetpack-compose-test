@@ -1,6 +1,7 @@
 package com.example.recipe_detail.composable
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -11,6 +12,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
+import com.example.recipe_shared_components.composable.CenterLoader
 import com.example.recipeappdata.Model.RecipeData
 
 @Composable
@@ -26,8 +29,11 @@ fun DetailScreen(foodItem: State<RecipeData>) {
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
         )
-        AsyncImage(
+        SubcomposeAsyncImage(
             modifier= Modifier.fillMaxWidth().align(Alignment.CenterHorizontally),
+            loading = {
+                CenterLoader()
+            },
             model = foodItem.value.image,
             contentDescription = "Translated description of what the image contains"
         )

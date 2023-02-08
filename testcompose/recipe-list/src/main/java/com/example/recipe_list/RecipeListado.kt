@@ -33,6 +33,7 @@ import androidx.navigation.NavController
 import com.example.recipe_list.composable.FoodCard
 import com.example.recipe_list.composable.Greeting
 import com.example.recipe_list.viewmodel.RecipeListadoViewModel
+import com.example.recipe_shared_components.composable.CenterLoader
 import com.example.recipeappdata.Model.RecipeData
 import com.example.recipeappdata.Model.RecipeList
 
@@ -51,9 +52,7 @@ fun RecipeListado(
         color = MacAndCheese
     ) {
         if (myfoodList.value.isEmpty()) {
-            Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                CircularProgressIndicator(modifier = Modifier.then(Modifier.size(32.dp)))
-            }
+            CenterLoader()
         } else {
             LazyColumn(state = rememberLazyListState()) {
                 item {
