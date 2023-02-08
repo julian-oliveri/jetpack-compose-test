@@ -3,13 +3,10 @@ package com.example.recipe_detail
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -20,7 +17,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.recipe_detail.composable.DetailScreen
 import com.example.recipe_detail.composable.IngredientsList
 import com.example.recipe_detail.composable.InstructionsList
 import com.example.recipe_detail.ui.theme.MacAndCheese
@@ -35,43 +34,30 @@ fun RecipeDetail(
     recipeId: String?,
     modifier: Modifier = Modifier.fillMaxSize(),
     viewModel: RecipeDetailViewModel,
+    navController: NavController
 ) {
     val recipeId = recipeId ?: "nollega"
     Log.d("idLlega", recipeId)
 
     val myFoodItem = viewModel.recipe.observeAsState(RecipeData("", "", "", "", listOf(), listOf(), ""))
 
+    BackHandler(enabled = true) {
+        // your action
+        viewModel.emptyRecipe()
+        navController.popBackStack()
+    }
 
     Surface(
         modifier = modifier,
         color = MacAndCheese
     ) {
-        Column() {
-            Text(
-                text = myFoodItem.value.label,
-                modifier = Modifier
-                    .padding(10.dp, 10.dp)
-                    .fillMaxWidth(),
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-            )
-            AsyncImage(
-                modifier= Modifier.fillMaxWidth().align(Alignment.CenterHorizontally),
-                model = myFoodItem.value.image,
-                contentDescription = "Translated description of what the image contains"
-            )
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(25.dp, 25.dp, 25.dp, 0.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                IngredientsList(ingredients = myFoodItem.value.ingredients)
+        if (myFoodItem.value.label == "") {
+            Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+                CircularProgressIndicator(modifier = Modifier.then(Modifier.size(32.dp)))
             }
-//            InstructionsList(instruction = myFoodItem.value.instructions!!)
+        } else {
+            DetailScreen(foodItem = myFoodItem)
         }
-
     }
 }
 

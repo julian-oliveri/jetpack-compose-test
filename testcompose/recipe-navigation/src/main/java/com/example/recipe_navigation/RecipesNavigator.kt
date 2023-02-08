@@ -52,7 +52,7 @@ fun RecipesNavigator(
                         recipeDetailViewModel.fetchRecipeId(recipeId)
                     }
                 }
-                RecipeDetail(recipeId = backStackEntry.arguments?.getString("recipeId"), viewModel = recipeDetailViewModel)
+                RecipeDetail(recipeId = recipeId, viewModel = recipeDetailViewModel, navController = navController)
         }
 
     }

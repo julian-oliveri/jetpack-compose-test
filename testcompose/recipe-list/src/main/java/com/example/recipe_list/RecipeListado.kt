@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,15 +50,20 @@ fun RecipeListado(
         modifier = modifier,
         color = MacAndCheese
     ) {
-        LazyColumn(state = rememberLazyListState()) {
-            item {
-                Greeting("Giuseppe")
+        if (myfoodList.value.isEmpty()) {
+            Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+                CircularProgressIndicator(modifier = Modifier.then(Modifier.size(32.dp)))
             }
-            items(items = myfoodList.value.toList()) { food ->
-                FoodCard(food = food.recipe, navController)
+        } else {
+            LazyColumn(state = rememberLazyListState()) {
+                item {
+                    Greeting("Giuseppe")
+                }
+                items(items = myfoodList.value.toList()) { food ->
+                    FoodCard(food = food.recipe, navController)
+                }
             }
         }
-
     }
 }
 

@@ -23,4 +23,10 @@ class RecipeDetailViewModel @Inject constructor(private val getRecipeUseCase: Ge
         }
     }
 
+    fun emptyRecipe() {
+        viewModelScope.launch {
+            _recipe.value = RecipeData("", "", "", "", listOf(), listOf(), "" )
+        }
+    }
+
 }
