@@ -68,4 +68,6 @@ dependencies {
     kaptAndroidTest "com.google.dagger:hilt-compiler:$hilt_version"
     testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
     kaptTest "com.google.dagger:hilt-compiler:$hilt_version"
+
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
 }

@@ -2,6 +2,7 @@ package com.example.recipe_navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
@@ -25,7 +26,7 @@ fun RecipesNavigator(
 ) {
     val navController = rememberNavController()
 
-    val foodList: MutableList<RecipeList>? = recipeListViewModel.recipeList.value ?: mutableListOf()
+    val foodList: MutableList<RecipeList>? = recipeListViewModel.recipeList.value
     val foodItem: RecipeData? = recipeDetailViewModel.recipe.value
 
     NavHost(
@@ -39,7 +40,7 @@ fun RecipesNavigator(
             LaunchedEffect(true) {
                 recipeListViewModel.fetchRecipes()
             }
-            RecipeListado(navController = navController, viewModel = recipeListViewModel, foodList = foodList!!)
+            RecipeListado(navController = navController, viewModel = recipeListViewModel, foodList = foodList)
         }
 
         composable("detalle/{recipeId}", arguments = listOf(navArgument("recipeId") { type = NavType.StringType }))

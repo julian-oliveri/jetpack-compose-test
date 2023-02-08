@@ -41,10 +41,10 @@ fun RecipeListado(
     modifier: Modifier = Modifier.fillMaxSize(),
     navController: NavController,
     viewModel: RecipeListadoViewModel,
-    foodList: MutableList<RecipeList>
+    foodList: MutableList<RecipeList>?
 ) {
 //    var myFoodlist: MutableList<RecipeList> by rememberSaveable  { mutableStateOf(foodList) }
-//    val foodList = viewModel.recipeList.observeAsState()
+    val myfoodList = viewModel.recipeList.observeAsState(mutableListOf())
 
     Surface(
         modifier = modifier,
@@ -54,7 +54,7 @@ fun RecipeListado(
             item {
                 Greeting("Giuseppe")
             }
-            items(items = foodList) { food ->
+            items(items = myfoodList.value.toList()) { food ->
                 FoodCard(food = food.recipe, navController)
             }
         }
