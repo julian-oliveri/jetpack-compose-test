@@ -1,6 +1,7 @@
 package com.example.recipe_navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
@@ -35,12 +36,22 @@ fun RecipesNavigator(
 
         composable("listado")
         {
+            LaunchedEffect(true) {
+                recipeListViewModel.fetchRecipes()
+            }
             RecipeListado(navController = navController, viewModel = recipeListViewModel, foodList = foodList!!)
         }
 
         composable("detalle/{recipeId}", arguments = listOf(navArgument("recipeId") { type = NavType.StringType }))
         {
-            backStackEntry -> RecipeDetail(recipeId = backStackEntry.arguments?.getString("recipeId"), viewModel = recipeDetailViewModel, foodItem = foodItem!!)
+            backStackEntry ->
+                val recipeId = backStackEntry.arguments?.getString("recipeId")
+                LaunchedEffect(true) {
+                    if (recipeId != null) {
+                        recipeDetailViewModel.fetchRecipeId(recipeId)
+                    }
+                }
+                RecipeDetail(recipeId = backStackEntry.arguments?.getString("recipeId"), viewModel = recipeDetailViewModel, foodItem = foodItem!!)
         }
 
     }

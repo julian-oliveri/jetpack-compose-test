@@ -40,10 +40,6 @@ fun RecipeDetail(
     val recipeId = recipeId ?: "nollega"
     Log.d("idLlega", recipeId)
 
-    LaunchedEffect(key1 = Unit) {
-        viewModel.fetchRecipeId(recipeId)
-    }
-
     Surface(
         modifier = modifier,
         color = MacAndCheese

@@ -46,10 +46,6 @@ fun RecipeListado(
 //    var myFoodlist: MutableList<RecipeList> by rememberSaveable  { mutableStateOf(foodList) }
 //    val foodList = viewModel.recipeList.observeAsState()
 
-    LaunchedEffect(key1 = Unit) {
-        viewModel.fetchRecipes()
-    }
-
     Surface(
         modifier = modifier,
         color = MacAndCheese
