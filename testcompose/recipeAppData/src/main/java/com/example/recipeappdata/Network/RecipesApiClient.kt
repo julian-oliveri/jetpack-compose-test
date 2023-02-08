@@ -1,6 +1,7 @@
 package com.example.recipeappdata.Network
 
 import com.example.recipeappdata.Model.RecipeData
+import com.example.recipeappdata.Model.RecipeList
 import com.example.recipeappdata.Model.RecipeResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -17,6 +18,6 @@ interface RecipesApiClient {
     suspend fun getRecipes(@Query("type") type: String = "public", @Query("cuisineType") cuisineType: String = "italian", @Query("app_id") app_id: String = myapp_id, @Query("app_key") app_key: String = myapp_key) : Response<RecipeResponse>
 
     @GET("/api/recipes/v2/{id}")
-    suspend fun getRecipeById(@Path("id") id: String, @Query("type") type: String = "public", @Query("app_id") app_id: String = myapp_id, @Query("app_key") app_key: String = myapp_key) : Response<RecipeData>
+    suspend fun getRecipeById(@Path("id") id: String, @Query("type") type: String = "public", @Query("app_id") app_id: String = myapp_id, @Query("app_key") app_key: String = myapp_key) : Response<RecipeList>
 
 }

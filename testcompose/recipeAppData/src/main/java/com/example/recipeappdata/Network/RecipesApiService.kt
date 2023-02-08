@@ -18,8 +18,10 @@ class RecipesApiService @Inject constructor(private val apiClient: RecipesApiCli
 
     suspend fun getRecipesById(id: String): RecipeData {
         return withContext(Dispatchers.IO) {
-            val response = apiClient.getRecipeById(id).body()?: RecipeData("", "","","", listOf(),  listOf(), "" )
-            RecipeData(response.uri, response.label, response.image, response.url, response.ingredients, response.instructions, response.externalId )
+//            val response = apiClient.getRecipeById(id).body()?: RecipeData("", "","","", listOf(),  listOf(), "" )
+            val response = apiClient.getRecipeById(id).body()?: RecipeList(RecipeData("", "","","", listOf(),  listOf(), "" ))
+
+            RecipeData(response.recipe.uri, response.recipe.label, response.recipe.image, response.recipe.url, response.recipe.ingredients, response.recipe.instructions, response.recipe.externalId )
         }
     }
 }

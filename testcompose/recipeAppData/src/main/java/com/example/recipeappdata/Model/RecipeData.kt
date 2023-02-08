@@ -15,9 +15,9 @@ data class RecipeData (
     @SerializedName("ingredients")
     val ingredients: List<RecipeIngredients>,
     @SerializedName("instructions")
-    val instructions: List<String>,
+    val instructions: List<String>?,
     @SerializedName("externalId")
-    val externalId: String,
+    val externalId: String?,
 )
 //{
 // http://www.edamam.com/ontologies/edamam.owl#recipe_bdbd520ef98fb99c4b0951e6a9fc6934

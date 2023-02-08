@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,12 +34,12 @@ fun RecipeDetail(
     recipeId: String?,
     modifier: Modifier = Modifier.fillMaxSize(),
     viewModel: RecipeDetailViewModel,
-    foodItem: RecipeData = RecipeData("uri", "pasta con salsa", "https://media.istockphoto.com/id/1325172440/photo/spaghetti-alla-puttanesca-italian-pasta-dish-with-tomatoes-black-olives-capers-anchovies-and.jpg?b=1&s=170667a&w=0&k=20&c=0XEgTZ2pcp83v0rBgjtQ0bH9pXkxYDQgW7mrc5aNX30=", "url", listOf(
-        RecipeIngredients("ing1", 1f, "300ml"), RecipeIngredients("ing2", 1f, "1/4 tazas"), RecipeIngredients("ing3", 1f, "3 unidades")
-    ),listOf("pelar ing1", "batir ing2","saltear ing3", "incorporar todo" ), "extid"),
 ) {
     val recipeId = recipeId ?: "nollega"
     Log.d("idLlega", recipeId)
+
+    val myFoodItem = viewModel.recipe.observeAsState(RecipeData("", "", "", "", listOf(), listOf(), ""))
+
 
     Surface(
         modifier = modifier,
@@ -46,16 +47,18 @@ fun RecipeDetail(
     ) {
         Column() {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(25.dp, 25.dp, 25.dp, 0.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(25.dp, 25.dp, 25.dp, 0.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                IngredientsList(ingredients = foodItem.ingredients)
+                IngredientsList(ingredients = myFoodItem.value.ingredients)
                 AsyncImage(
-                    model = foodItem.image,
+                    model = myFoodItem.value.image,
                     contentDescription = "Translated description of what the image contains"
                 )
             }
-            InstructionsList(instruction = foodItem.instructions)
+//            InstructionsList(instruction = myFoodItem.value.instructions!!)
         }
 
     }
@@ -66,3 +69,7 @@ fun RecipeDetail(
 fun DefaultPreview() {
 //    RecipeDetail(modifier = Modifier.fillMaxSize(), recipeId = "previewRecipeId")
 }
+
+//foodItem: RecipeData = RecipeData("uri", "pasta con salsa", "https://media.istockphoto.com/id/1325172440/photo/spaghetti-alla-puttanesca-italian-pasta-dish-with-tomatoes-black-olives-capers-anchovies-and.jpg?b=1&s=170667a&w=0&k=20&c=0XEgTZ2pcp83v0rBgjtQ0bH9pXkxYDQgW7mrc5aNX30=", "url", listOf(
+//RecipeIngredients("ing1", 1f, "300ml"), RecipeIngredients("ing2", 1f, "1/4 tazas"), RecipeIngredients("ing3", 1f, "3 unidades")
+//),listOf("pelar ing1", "batir ing2","saltear ing3", "incorporar todo" ), "extid"),

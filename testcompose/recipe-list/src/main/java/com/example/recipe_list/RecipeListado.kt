@@ -41,7 +41,6 @@ fun RecipeListado(
     modifier: Modifier = Modifier.fillMaxSize(),
     navController: NavController,
     viewModel: RecipeListadoViewModel,
-    foodList: MutableList<RecipeList>?
 ) {
 //    var myFoodlist: MutableList<RecipeList> by rememberSaveable  { mutableStateOf(foodList) }
     val myfoodList = viewModel.recipeList.observeAsState(mutableListOf())

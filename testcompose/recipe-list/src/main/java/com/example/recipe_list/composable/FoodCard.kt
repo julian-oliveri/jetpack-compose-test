@@ -23,7 +23,7 @@ import com.example.recipeappdata.Model.RecipeData
 @Composable
 fun FoodCard(food: RecipeData, navController: NavController,) {
     var expanded by rememberSaveable { mutableStateOf(false) }
-    val extId = food.uri
+    val extId = food.uri.substringAfter("recipe_")
     val navDestination = "detalle/$extId"
     Box( modifier = Modifier
         .fillMaxWidth()

@@ -26,8 +26,8 @@ fun RecipesNavigator(
 ) {
     val navController = rememberNavController()
 
-    val foodList: MutableList<RecipeList>? = recipeListViewModel.recipeList.value
-    val foodItem: RecipeData? = recipeDetailViewModel.recipe.value
+//    val foodList: MutableList<RecipeList>? = recipeListViewModel.recipeList.value
+//    val foodItem: RecipeData? = recipeDetailViewModel.recipe.value
 
     NavHost(
         modifier = modifier,
@@ -40,7 +40,7 @@ fun RecipesNavigator(
             LaunchedEffect(true) {
                 recipeListViewModel.fetchRecipes()
             }
-            RecipeListado(navController = navController, viewModel = recipeListViewModel, foodList = foodList)
+            RecipeListado(navController = navController, viewModel = recipeListViewModel)
         }
 
         composable("detalle/{recipeId}", arguments = listOf(navArgument("recipeId") { type = NavType.StringType }))
@@ -52,7 +52,7 @@ fun RecipesNavigator(
                         recipeDetailViewModel.fetchRecipeId(recipeId)
                     }
                 }
-                RecipeDetail(recipeId = backStackEntry.arguments?.getString("recipeId"), viewModel = recipeDetailViewModel, foodItem = foodItem!!)
+                RecipeDetail(recipeId = backStackEntry.arguments?.getString("recipeId"), viewModel = recipeDetailViewModel)
         }
 
     }
