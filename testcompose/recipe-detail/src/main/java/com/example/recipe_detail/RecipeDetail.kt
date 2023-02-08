@@ -16,6 +16,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -46,6 +47,20 @@ fun RecipeDetail(
         color = MacAndCheese
     ) {
         Column() {
+            Text(
+                text = myFoodItem.value.label,
+                modifier = Modifier
+                    .padding(10.dp, 10.dp)
+                    .fillMaxWidth(),
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+            AsyncImage(
+                modifier= Modifier.fillMaxWidth().align(Alignment.CenterHorizontally),
+                model = myFoodItem.value.image,
+                contentDescription = "Translated description of what the image contains"
+            )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -53,10 +68,6 @@ fun RecipeDetail(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IngredientsList(ingredients = myFoodItem.value.ingredients)
-                AsyncImage(
-                    model = myFoodItem.value.image,
-                    contentDescription = "Translated description of what the image contains"
-                )
             }
 //            InstructionsList(instruction = myFoodItem.value.instructions!!)
         }
