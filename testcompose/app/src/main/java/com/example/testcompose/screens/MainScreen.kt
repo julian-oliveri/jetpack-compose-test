@@ -18,6 +18,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.testcompose.ui.theme.TestcomposeTheme
 
+//
+// SE DECIDIO NO USAR EL ONBOARDING, EN UN PUSH MAS ADELANTE QUIZAS SE AGREGUE
+//
+
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier.fillMaxSize(),

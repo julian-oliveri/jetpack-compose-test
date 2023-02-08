@@ -21,7 +21,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import com.example.recipe_detail.viewmodel.RecipeDetailViewModel
 import com.example.recipe_list.viewmodel.RecipeListadoViewModel
 import com.example.recipe_navigation.RecipesNavigator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

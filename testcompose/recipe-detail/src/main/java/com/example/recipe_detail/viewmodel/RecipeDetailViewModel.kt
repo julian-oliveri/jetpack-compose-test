@@ -6,9 +6,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.recipe_domain.GetRecipeByIdUseCase
 import com.example.recipeappdata.Model.RecipeData
 import com.example.recipeappdata.Model.RecipeList
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RecipeDetailViewModel(private val getRecipeUseCase: GetRecipeByIdUseCase) : ViewModel() {
+@HiltViewModel
+class RecipeDetailViewModel @Inject constructor(private val getRecipeUseCase: GetRecipeByIdUseCase) : ViewModel() {
 
     private val _recipe = MutableLiveData<RecipeData>()
     val recipe: MutableLiveData<RecipeData>

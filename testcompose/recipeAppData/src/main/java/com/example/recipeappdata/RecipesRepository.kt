@@ -4,14 +4,15 @@ import android.util.Log
 import com.example.recipeappdata.Model.RecipeData
 import com.example.recipeappdata.Model.RecipeResponse
 import com.example.recipeappdata.Network.RecipesApiService
+import javax.inject.Inject
 
-class RecipesRepository(private val api: RecipesApiService) {
+class RecipesRepository @Inject constructor(private val api: RecipesApiService) {
 
-    suspend fun getRecipesList(): RecipeResponse {
+    private suspend fun getRecipesList(): RecipeResponse {
         return api.getRecipesList()
     }
 
-    suspend fun getRecipeId(id: String): RecipeData {
+    private suspend fun getRecipeId(id: String): RecipeData {
         return api.getRecipesById(id)
     }
 

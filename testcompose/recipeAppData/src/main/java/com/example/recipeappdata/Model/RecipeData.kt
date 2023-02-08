@@ -1,15 +1,29 @@
 package com.example.recipeappdata.Model
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
 data class RecipeData (
+    @SerializedName("uri")
     val uri: String,
+    @SerializedName("label")
     val label: String,
+    @SerializedName("image")
     val image: String,
+    @SerializedName("url")
     val url: String,
+    @SerializedName("ingredients")
     val ingredients: List<RecipeIngredients>,
+    @SerializedName("instructions")
     val instructions: List<String>,
-    val externalId: String
+    @SerializedName("externalId")
+    val externalId: String,
 )
 //{
+// http://www.edamam.com/ontologies/edamam.owl#recipe_bdbd520ef98fb99c4b0951e6a9fc6934
+// bdbd520ef98fb99c4b0951e6a9fc6934
+//
+//
 //    "from": 0,
 //    "to": 0,
 //    "count": 0,

@@ -5,8 +5,9 @@ import com.example.recipeappdata.Model.RecipeList
 import com.example.recipeappdata.Model.RecipeResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RecipesApiService(private val apiClient: RecipesApiClient) {
+class RecipesApiService @Inject constructor(private val apiClient: RecipesApiClient) {
 
     suspend fun getRecipesList(): RecipeResponse {
         return withContext(Dispatchers.IO) {

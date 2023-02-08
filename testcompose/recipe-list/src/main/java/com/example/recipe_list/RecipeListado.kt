@@ -36,11 +36,9 @@ import com.example.recipeappdata.Model.RecipeData
 import com.example.recipeappdata.Model.RecipeList
 
 
-var myfoodList: MutableList<RecipeList> = mutableListOf<RecipeList>()
-
 @Composable
 fun RecipeListado(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.fillMaxSize(),
     navController: NavController,
     viewModel: RecipeListadoViewModel,
     foodList: MutableList<RecipeList>

@@ -2,6 +2,7 @@ package com.example.recipe_navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,23 +19,22 @@ import com.example.recipeappdata.Model.RecipeList
 fun RecipesNavigator(
     modifier: Modifier = Modifier,
     startDestination: String = "listado",
-    recipeListViewModel: RecipeListadoViewModel?,
-    recipeDetailViewModel: RecipeDetailViewModel?,
+    recipeListViewModel: RecipeListadoViewModel = hiltViewModel(),
+    recipeDetailViewModel: RecipeDetailViewModel = hiltViewModel(),
 ) {
     val navController = rememberNavController()
 
-    val foodList: MutableList<RecipeList>? = recipeListViewModel?.recipeList?.value
-    val foodItem: RecipeData? = recipeDetailViewModel?.recipe?.value
+    val foodList: MutableList<RecipeList>? = recipeListViewModel.recipeList.value ?: mutableListOf()
+    val foodItem: RecipeData? = recipeDetailViewModel.recipe.value
 
     NavHost(
         modifier = modifier,
         navController = navController,
         startDestination = startDestination
     ) {
-//        composable("onboarding") {
-//            MainScreen(navController = navController)
-//        }
-        composable("listado") {
+
+        composable("listado")
+        {
             RecipeListado(navController = navController, viewModel = recipeListViewModel, foodList = foodList!!)
         }
 

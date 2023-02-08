@@ -2,9 +2,10 @@ package com.example.recipe_domain
 
 import com.example.recipeappdata.Model.RecipeResponse
 import com.example.recipeappdata.RecipesRepository
+import javax.inject.Inject
 
-class GetRecipesUseCase(private val repository: RecipesRepository) {
+class GetRecipesUseCase @Inject constructor(private val repository: RecipesRepository) {
     suspend operator fun invoke(): RecipeResponse? {
-        return repository.getRecipesList()
+        return repository.getRecipes()
     }
 }
