@@ -5,6 +5,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,7 +24,7 @@ fun RecipesNavigator(
     modifier: Modifier = Modifier,
     startDestination: String = "listado",
     recipeListViewModel: RecipeListadoViewModel = hiltViewModel(),
-    recipeDetailViewModel: RecipeDetailViewModel = hiltViewModel(),
+    recipeDetailViewModel: RecipeDetailViewModel = hiltViewModel(), // TODO fuera de contexto, mover a la ruta
 ) {
     val navController = rememberNavController()
 
@@ -35,25 +37,35 @@ fun RecipesNavigator(
         startDestination = startDestination
     ) {
 
-        composable("listado")
-        {
-            LaunchedEffect(true) {
-                recipeListViewModel.fetchRecipes()
-            }
-            RecipeListado(navController = navController, viewModel = recipeListViewModel)
-        }
+        // TODO colocar en el modulo del cual proviene
+        // TODO generar constantes para los nombres de las rutas (o clase)
+        addRecipeListScreen(
+            recipeListViewModel,
+            navController
+        )
 
         composable("detalle/{recipeId}", arguments = listOf(navArgument("recipeId") { type = NavType.StringType }))
-        {
-            backStackEntry ->
-                val recipeId = backStackEntry.arguments?.getString("recipeId")
-                LaunchedEffect(true) {
-                    if (recipeId != null) {
-                        recipeDetailViewModel.fetchRecipeId(recipeId)
-                    }
+        { backStackEntry ->
+            val recipeId = backStackEntry.arguments?.getString("recipeId")
+            LaunchedEffect(true) {
+                if (recipeId != null) {
+                    recipeDetailViewModel.fetchRecipeId(recipeId)
                 }
-                RecipeDetail(recipeId = recipeId, viewModel = recipeDetailViewModel, navController = navController)
+            }
+            RecipeDetail(recipeId = recipeId, viewModel = recipeDetailViewModel, navController = navController)
         }
 
+    }
+}
+
+fun NavGraphBuilder.addRecipeListScreen(
+    recipeListViewModel: RecipeListadoViewModel,
+    navController: NavHostController
+) {
+    composable("listado") {
+        LaunchedEffect(true) {
+            recipeListViewModel.fetchRecipes()
+        }
+        RecipeListado(navController = navController, viewModel = recipeListViewModel)
     }
 }

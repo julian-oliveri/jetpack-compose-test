@@ -20,10 +20,23 @@ import androidx.navigation.NavController
 import com.example.recipe_list.ui.theme.CardBkg
 import com.example.recipeappdata.Model.RecipeData
 
+data class A(val url: String)
+
+data class R(val id: String)
+
+fun A.toDomain() = R(id = url.substringAfter("recipe_"))
+
+class UseCase {
+
+    operator fun invoke(): List<R> {
+        return emptyList<A>().map { it.toDomain() }
+    }
+}
+
 @Composable
 fun FoodCard(food: RecipeData, navController: NavController,) {
     var expanded by rememberSaveable { mutableStateOf(false) }
-    val extId = food.uri.substringAfter("recipe_")
+    val extId = food.uri.substringAfter("recipe_") // TODO no debería haber logica en los componentes, viewmodel/usecase/domain
     val navDestination = "detalle/$extId"
     Box( modifier = Modifier
         .fillMaxWidth()
@@ -43,7 +56,7 @@ fun FoodCard(food: RecipeData, navController: NavController,) {
                     fontSize = 22.sp,
                     textAlign = TextAlign.Center,
                 )
-                ElevatedButton(
+                ElevatedButton( // TODO caso de uso animaciones, crear un collapsable animado
                     onClick = { expanded = !expanded },
                 ) {
                     Text(if (expanded) "Show less" else "Show more")

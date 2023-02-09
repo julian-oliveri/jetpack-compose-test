@@ -11,7 +11,7 @@ import retrofit2.http.Query
 interface RecipesApiClient {
     companion object {
         const val myapp_id: String = "aa59c605"
-        const val myapp_key = "98b7a5c2359dc7a0e0964db1e39f191d"
+        const val myapp_key = "98b7a5c2359dc7a0e0964db1e39f191d" // TODO buildconfig
     }
 
     @GET("/api/recipes/v2")

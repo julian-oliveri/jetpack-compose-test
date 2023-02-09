@@ -1,5 +1,6 @@
 package com.example.recipe_detail.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,12 +11,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+// TODO: probar con flow (opcional)
+// TODO: podemos probar armado una clase que represente un estado
+
 @HiltViewModel
 class RecipeDetailViewModel @Inject constructor(private val getRecipeUseCase: GetRecipeByIdUseCase) : ViewModel() {
 
     private val _recipe = MutableLiveData<RecipeData>()
-    val recipe: MutableLiveData<RecipeData>
-        get() = _recipe
+
+    val recipe: LiveData<RecipeData> = _recipe
 
     fun fetchRecipeId(id: String) {
         viewModelScope.launch {

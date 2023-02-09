@@ -18,13 +18,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RetrofitHelper {
 
-    val baseUrl = "https://api.edamam.com"
+    val baseUrl = "https://api.edamam.com" // TODO BuildConfig
 
     @Singleton
     @Provides
     fun getInstance(): Retrofit {
 
-        val interceptor = run {
+        val interceptor = run { // TODO ??
             val httpLoggingInterceptor = HttpLoggingInterceptor()
             httpLoggingInterceptor.apply {
                 httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY

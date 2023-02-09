@@ -37,15 +37,17 @@ fun RecipeDetail(
     viewModel: RecipeDetailViewModel,
     navController: NavController
 ) {
+    // TODO: no debería tener que comprobar estas cuestiones. Además no hace nada al respecto.
     val recipeId = recipeId ?: "nollega"
     Log.d("idLlega", recipeId)
 
+    // TODO: definir el estado inicial dentro del viewmodel
     val myFoodItem = viewModel.recipe.observeAsState(RecipeData("", "", "", "", listOf(), listOf(), ""))
 
     BackHandler(enabled = true) {
         // your action
         viewModel.emptyRecipe()
-        navController.popBackStack()
+        navController.popBackStack() // TODO: no debería referenciarse directamente dentro del componente (state hoisting)
     }
 
     Surface(
@@ -63,7 +65,8 @@ fun RecipeDetail(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-//    RecipeDetail(modifier = Modifier.fillMaxSize(), recipeId = "previewRecipeId")
+    // TODO: implementar, tuviste alguna dificultad?
+    // RecipeDetail(modifier = Modifier.fillMaxSize(), recipeId = "previewRecipeId")
 }
 
 //foodItem: RecipeData = RecipeData("uri", "pasta con salsa", "https://media.istockphoto.com/id/1325172440/photo/spaghetti-alla-puttanesca-italian-pasta-dish-with-tomatoes-black-olives-capers-anchovies-and.jpg?b=1&s=170667a&w=0&k=20&c=0XEgTZ2pcp83v0rBgjtQ0bH9pXkxYDQgW7mrc5aNX30=", "url", listOf(

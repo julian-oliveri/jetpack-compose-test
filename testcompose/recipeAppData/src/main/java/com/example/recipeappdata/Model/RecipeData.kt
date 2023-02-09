@@ -1,4 +1,4 @@
-package com.example.recipeappdata.Model
+package com.example.recipeappdata.Model // TODO lowercase letter, seguir convención
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
