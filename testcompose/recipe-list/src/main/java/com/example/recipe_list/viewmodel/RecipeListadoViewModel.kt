@@ -5,36 +5,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipe_domain.GetRecipesUseCase
-import com.example.recipeappdata.Model.RecipeList
-import com.example.recipeappdata.Model.RecipeResponse
+import com.example.recipeappdata.model.Recipes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-interface ListState {
-
-    object Loading: ListState
-
-    data class Loaded(val list: List<RecipeList>): ListState
-
-    data class Error(val error: String): ListState
-
-}
-
 @HiltViewModel
 class RecipeListadoViewModel @Inject constructor(private val getRecipeUseCase: GetRecipesUseCase) : ViewModel() {
 
-    private val _recipeList = MutableLiveData<ListState>(ListState.Loading)
+    private val _recipeList = MutableLiveData<RecipeListState>(RecipeListState.Loading)
 
-    val recipeList: LiveData<ListState> = _recipeList
+    val recipeList: LiveData<RecipeListState> = _recipeList
 
     fun fetchRecipes() {
         viewModelScope.launch {
-            _recipeList.value = ListState.Loading
+            _recipeList.value = RecipeListState.Loading
             try {
-                _recipeList.value = ListState.Loaded(getRecipeUseCase()!!.hits)
+                _recipeList.value = RecipeListState.Loaded(getRecipeUseCase()!!.hits)
             } catch (error: java.lang.Exception) {
-                _recipeList.value = ListState.Error(error.message ?: "Error")
+                _recipeList.value = RecipeListState.Error(error.message ?: "Error")
             }
         }
     }

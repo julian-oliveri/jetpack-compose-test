@@ -1,64 +1,39 @@
 package com.example.recipe_detail
 
-import android.os.Bundle
 import android.util.Log
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
 import com.example.recipe_detail.composable.DetailScreen
-import com.example.recipe_detail.composable.IngredientsList
-import com.example.recipe_detail.composable.InstructionsList
 import com.example.recipe_detail.ui.theme.MacAndCheese
-import com.example.recipe_detail.ui.theme.TestcomposeTheme
+import com.example.recipe_detail.viewmodel.RecipeDetailState
 import com.example.recipe_detail.viewmodel.RecipeDetailViewModel
 import com.example.recipe_shared_components.composable.CenterLoader
-import com.example.recipeappdata.Model.RecipeData
-import com.example.recipeappdata.Model.RecipeIngredients
-import com.example.recipeappdata.Model.RecipeList
+import com.example.recipeappdata.model.RecipeData
 
 @Composable
 fun RecipeDetail(
-    recipeId: String?,
     modifier: Modifier = Modifier.fillMaxSize(),
     viewModel: RecipeDetailViewModel,
-    navController: NavController
 ) {
-    // TODO: no debería tener que comprobar estas cuestiones. Además no hace nada al respecto.
-    val recipeId = recipeId ?: "nollega"
-    Log.d("idLlega", recipeId)
+    val state by viewModel.recipe.observeAsState(RecipeDetailState.Loading)
 
-    // TODO: definir el estado inicial dentro del viewmodel
-    val myFoodItem = viewModel.recipe.observeAsState(RecipeData("", "", "", "", listOf(), listOf(), ""))
-
-    BackHandler(enabled = true) {
-        // your action
-        viewModel.emptyRecipe()
-        navController.popBackStack() // TODO: no debería referenciarse directamente dentro del componente (state hoisting)
-    }
-
-    Surface(
-        modifier = modifier,
-        color = MacAndCheese
-    ) {
-        if (myFoodItem.value.label == "") {
-            CenterLoader()
-        } else {
-            DetailScreen(foodItem = myFoodItem)
+    when (state) {
+        is RecipeDetailState.Loading -> CenterLoader()
+        is RecipeDetailState.Loaded -> LazyColumn(state = rememberLazyListState()) {
+            item {
+                DetailScreen(foodItem = (state as RecipeDetailState.Loaded).recipe)
+            }
         }
+        is RecipeDetailState.Error -> {}
     }
 }
 

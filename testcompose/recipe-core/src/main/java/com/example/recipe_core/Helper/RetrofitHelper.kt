@@ -1,5 +1,6 @@
 package com.example.recipe_core.Domain.Helper
 
+import com.example.recipe_core.BuildConfig
 import com.example.recipeappdata.Network.RecipesApiClient
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -18,13 +19,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RetrofitHelper {
 
-    val baseUrl = "https://api.edamam.com" // TODO BuildConfig
+    val baseUrl = com.example.recipe_core.BuildConfig.BASE_URL // TODO BuildConfig
 
     @Singleton
     @Provides
     fun getInstance(): Retrofit {
 
-        val interceptor = run { // TODO ??
+        val interceptor = run {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
             httpLoggingInterceptor.apply {
                 httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY

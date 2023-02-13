@@ -1,8 +1,8 @@
 package com.example.recipeappdata
 
 import android.util.Log
-import com.example.recipeappdata.Model.RecipeData
-import com.example.recipeappdata.Model.RecipeResponse
+import com.example.recipeappdata.model.RecipeData
+import com.example.recipeappdata.model.RecipeResponse
 import com.example.recipeappdata.Network.RecipesApiService
 import javax.inject.Inject
 

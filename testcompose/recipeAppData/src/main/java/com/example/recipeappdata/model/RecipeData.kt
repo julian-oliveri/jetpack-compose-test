@@ -1,6 +1,5 @@
-package com.example.recipeappdata.Model // TODO lowercase letter, seguir convención
+package com.example.recipeappdata.model
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class RecipeData (
@@ -16,9 +15,10 @@ data class RecipeData (
     val ingredients: List<RecipeIngredients>,
     @SerializedName("instructions")
     val instructions: List<String>?,
-    @SerializedName("externalId")
-    val externalId: String?,
+    val extId: String
 )
+
+fun RecipeData.toExtId() = RecipeData(uri, label, image, url, ingredients, instructions, uri.substringAfter("recipe_"))
 //{
 // http://www.edamam.com/ontologies/edamam.owl#recipe_bdbd520ef98fb99c4b0951e6a9fc6934
 // bdbd520ef98fb99c4b0951e6a9fc6934
