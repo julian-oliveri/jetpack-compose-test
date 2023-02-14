@@ -18,9 +18,17 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "APP_KEY", "\"98b7a5c2359dc7a0e0964db1e39f191d\""
+            buildConfigField "String", "APP_ID", "\"aa59c605\""
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
         release {
-            buildConfigField "String", "APP_KEY", "98b7a5c2359dc7a0e0964db1e39f191d"
-            buildConfigField "String", "APP_ID", "aa59c605"
+            buildConfigField "String", "APP_KEY", "\"98b7a5c2359dc7a0e0964db1e39f191d\""
+            buildConfigField "String", "APP_ID", "\"aa59c605\""
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
