@@ -8,15 +8,17 @@ import com.example.recipe_domain.GetRecipeByIdUseCase
 import com.example.recipeappdata.model.RecipeData
 import com.example.recipeappdata.model.Recipes
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipeDetailViewModel @Inject constructor(private val getRecipeUseCase: GetRecipeByIdUseCase) : ViewModel() {
+class RecipeDetailViewModelFlow @Inject constructor(private val getRecipeUseCase: GetRecipeByIdUseCase) : ViewModel() {
 
-    private val _recipe = MutableLiveData<RecipeDetailState>(RecipeDetailState.Loading)
+    private val _recipe = MutableStateFlow<RecipeDetailState>(RecipeDetailState.Loading)
 
-    val recipe: LiveData<RecipeDetailState> = _recipe
+    val recipe: StateFlow<RecipeDetailState> = _recipe
 
     fun fetchRecipeId(id: String) {
         viewModelScope.launch {

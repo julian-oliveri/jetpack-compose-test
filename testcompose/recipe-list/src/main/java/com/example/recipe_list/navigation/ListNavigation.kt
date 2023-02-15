@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.recipe_list.RecipeListado
 import com.example.recipe_list.viewmodel.RecipeListadoViewModel
+import com.example.recipe_list.viewmodel.RecipeListadoViewModelFlow
 
 fun navToDetail(extId: String, navController: NavController) {
     val navDestination = "detalle/$extId"
@@ -18,7 +19,7 @@ fun NavGraphBuilder.addRecipeListScreen(
     navController: NavHostController
 ) {
     composable("listado") {
-        val recipeListViewModel: RecipeListadoViewModel = hiltViewModel()
+        val recipeListViewModel: RecipeListadoViewModelFlow = hiltViewModel()
 
         LaunchedEffect(true) {
             recipeListViewModel.fetchRecipes()

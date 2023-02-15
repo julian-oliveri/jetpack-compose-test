@@ -9,6 +9,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.recipe_list.composable.FoodCard
@@ -16,7 +18,9 @@ import com.example.recipe_list.composable.Greeting
 import com.example.recipe_list.ui.theme.TestcomposeTheme
 import com.example.recipe_list.viewmodel.RecipeListState
 import com.example.recipe_list.viewmodel.RecipeListadoViewModel
+import com.example.recipe_list.viewmodel.RecipeListadoViewModelFlow
 import com.example.recipe_shared_components.composable.CenterLoader
+import kotlinx.coroutines.flow.stateIn
 import kotlin.reflect.KFunction2
 
 
@@ -24,10 +28,11 @@ import kotlin.reflect.KFunction2
 fun RecipeListado(
     modifier: Modifier = Modifier.fillMaxSize(),
     navController: NavController,
-    viewModel: RecipeListadoViewModel,
+    viewModel: RecipeListadoViewModelFlow,
     onClickNav: KFunction2<String, NavController, Unit>
 ) {
-    val state by viewModel.recipeList.observeAsState(RecipeListState.Loading)
+
+    val state by viewModel.recipeList.asLiveData().observeAsState(RecipeListState.Loading)
 
     when (state) {
         is RecipeListState.Loading -> CenterLoader()

@@ -4,7 +4,7 @@ import com.example.recipeappdata.model.RecipeResponse
 import com.example.recipeappdata.RecipesRepository
 import com.example.recipeappdata.model.RecipeData
 import com.example.recipeappdata.model.Recipes
-import com.example.recipeappdata.model.toExtId
+import com.example.recipeappdata.model.toDomain
 import javax.inject.Inject
 
 class GetRecipesUseCase @Inject constructor(private val repository: RecipesRepository) {
@@ -14,7 +14,7 @@ class GetRecipesUseCase @Inject constructor(private val repository: RecipesRepos
         recipes.hits.map {
             recHits.add(
                 Recipes(
-                    it.recipe.toExtId()
+                    it.recipe.toDomain()
                 )
             )
         }
