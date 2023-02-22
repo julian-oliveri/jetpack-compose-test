@@ -3,7 +3,7 @@ package com.example.recipeappdata.Network
 import com.example.recipeappdata.model.RecipeData
 import com.example.recipeappdata.model.Recipes
 import com.example.recipeappdata.model.RecipeResponse
-import com.example.recipeappdata.model.toExtId
+import com.example.recipeappdata.model.toDomain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -22,7 +22,7 @@ class RecipesApiService @Inject constructor(private val apiClient: RecipesApiCli
 //            val response = apiClient.getRecipeById(id).body()?: RecipeData("", "","","", listOf(),  listOf(), "" )
             val response = apiClient.getRecipeById(id).body()?: Recipes(RecipeData("", "","","", listOf(),  listOf(), "" ))
 
-            response.recipe.toExtId()
+            response.recipe.toDomain()
         }
     }
 }
