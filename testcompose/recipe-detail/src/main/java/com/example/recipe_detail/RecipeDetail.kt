@@ -26,7 +26,7 @@ fun RecipeDetail(
     modifier: Modifier = Modifier.fillMaxSize(),
     viewModel: RecipeDetailViewModelFlow,
 ) {
-    val state by viewModel.recipe.asLiveData().observeAsState(RecipeDetailState.Loading)
+    val state by viewModel.recipe.collectAsState()
 
     when (state) {
         is RecipeDetailState.Loading -> CenterLoader()

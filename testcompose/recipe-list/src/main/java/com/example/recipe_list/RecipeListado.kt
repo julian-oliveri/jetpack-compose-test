@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -32,8 +33,7 @@ fun RecipeListado(
     onClickNav: KFunction2<String, NavController, Unit>
 ) {
 
-    val state by viewModel.recipeList.asLiveData().observeAsState(RecipeListState.Loading)
-
+    val state by viewModel.recipeList.collectAsState()
     when (state) {
         is RecipeListState.Loading -> CenterLoader()
         is RecipeListState.Loaded -> LazyColumn(state = rememberLazyListState()) {
