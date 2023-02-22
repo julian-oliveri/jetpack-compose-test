@@ -24,8 +24,7 @@ import com.example.recipeappdata.model.RecipeData
 
 @Composable
 fun DetailScreen(foodItem: RecipeData) {
-    LazyColumn(state = rememberLazyListState(), modifier = Modifier.fillMaxSize()) {
-        item {
+    Column( modifier = Modifier.fillMaxSize()) {
             Text(
                 text = foodItem.label,
                 modifier = Modifier
@@ -35,8 +34,6 @@ fun DetailScreen(foodItem: RecipeData) {
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
             )
-        }
-        item {
             SubcomposeAsyncImage(
                 modifier= Modifier
                     .fillMaxWidth().aspectRatio(1f),
@@ -48,10 +45,7 @@ fun DetailScreen(foodItem: RecipeData) {
                 contentDescription = foodItem.label
             )
         }
-        item {
             IngredientsList(ingredients = foodItem.ingredients)
             Spacer(modifier = Modifier.size(30.dp))
-        }
     }
 //            InstructionsList(instruction = myFoodItem.value.instructions!!)
-}
