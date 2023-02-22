@@ -17,14 +17,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.recipe_list.ui.theme.CardBkg
-import com.example.recipeappdata.Model.RecipeData
+import com.example.recipeappdata.model.RecipeData
+import kotlin.reflect.KFunction2
 
 @Composable
-fun FoodCard(food: RecipeData, navController: NavController,) {
+fun FoodCard(food: RecipeData, navController: NavController, onClickNav: KFunction2<String, NavController, Unit>) {
     var expanded by rememberSaveable { mutableStateOf(false) }
-    val extId = food.uri.substringAfter("recipe_")
-    val navDestination = "detalle/$extId"
+
     Box( modifier = Modifier
         .fillMaxWidth()
         .padding(24.dp)
@@ -43,7 +44,7 @@ fun FoodCard(food: RecipeData, navController: NavController,) {
                     fontSize = 22.sp,
                     textAlign = TextAlign.Center,
                 )
-                ElevatedButton(
+                ElevatedButton( // TODO caso de uso animaciones, crear un collapsable animado
                     onClick = { expanded = !expanded },
                 ) {
                     Text(if (expanded) "Show less" else "Show more")
@@ -57,7 +58,7 @@ fun FoodCard(food: RecipeData, navController: NavController,) {
                 }
 
                 ElevatedButton(
-                    onClick =  {navController.navigate(navDestination)} ,
+                    onClick = { onClickNav(food.extId, navController) },
                 ) {
                     Text("Vamos Alla")
                 }

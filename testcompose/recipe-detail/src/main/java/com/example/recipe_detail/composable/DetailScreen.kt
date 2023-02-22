@@ -9,6 +9,8 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -16,17 +18,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import com.example.recipe_shared_components.composable.CenterLoader
-import com.example.recipeappdata.Model.RecipeData
+import com.example.recipeappdata.model.RecipeData
 
 @Composable
-fun DetailScreen(foodItem: State<RecipeData>) {
+fun DetailScreen(foodItem: RecipeData) {
     LazyColumn(state = rememberLazyListState(), modifier = Modifier.fillMaxSize()) {
         item {
             Text(
-                text = foodItem.value.label,
+                text = foodItem.label,
                 modifier = Modifier
                     .padding(10.dp, 10.dp)
                     .fillMaxWidth(),
@@ -43,12 +44,12 @@ fun DetailScreen(foodItem: State<RecipeData>) {
                 loading = {
                     CenterLoader()
                 },
-                model = foodItem.value.image,
-                contentDescription = foodItem.value.label
+                model = foodItem.image,
+                contentDescription = foodItem.label
             )
         }
         item {
-            IngredientsList(ingredients = foodItem.value.ingredients)
+            IngredientsList(ingredients = foodItem.ingredients)
             Spacer(modifier = Modifier.size(30.dp))
         }
     }

@@ -5,7 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.recipeappdata.Model.RecipeIngredients
+import com.example.recipeappdata.model.RecipeIngredients
 
 @Composable
 fun IngredientsList(
